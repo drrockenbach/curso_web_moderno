@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercícios HTML</title>
+</head>
+<body>
+    <header><h1>Exercícios HTML</h1></header>
+    <nav>
+        <a href="execicios/teste.html">00 - Teste</a>
+        <br>
+        <!-- criando um atributo personalizado-->
+        <a href wm-href="execicios/temp.html">Temp</a>
+    </nav>
+    <section id="conteudo"></section>
+    <footer>
+        <br>
+        Curso de Web Moderno
+    </footer>
+    <script>
+        document.querySelectorAll('a').forEach(link => {
+            const conteudo = document.getElementById('conteudo')
+            link.onclick = function(e) {
+                e.preventDefault()
+                fetch(link.href) // faz um requisição ajax
+                    .then(resp => resp.text()) // a function text() retorna uma promise
+                    .then(html => conteudo.innerHTML = html)
+            }
+        })
+
+        document.querySelectorAll('[wm-href]').forEach(link => {
+            const conteudo = document.getElementById('conteudo')
+            link.onclick = function(e) {
+                e.preventDefault()
+                fetch(link.getAttribute('wm-href')) // faz um requisição ajax
+                    .then(resp => resp.text()) // a function text() retorna uma promise
+                    .then(html => conteudo.innerHTML = html)
+            }
+        })
+
+    </script>
+</body>
+</html>
