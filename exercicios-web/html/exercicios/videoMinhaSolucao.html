@@ -1,0 +1,76 @@
+
+<video id="meuvideo" width="800" height="450" controls controlsList="nodownload">
+    <source src="http://files.cod3r.com.br/curso-web/video.mp4" type="video/mp4"> 
+</video>
+
+<div wm-progresso="meuvideo" class="progresso">
+    <div></div>
+</div>
+
+<div>
+    <button wm-play="meuvideo">Play</button>
+    <button wm-pause="meuvideo">Pause</button>
+</div>
+
+<script>
+    
+    document.querySelectorAll('[wm-play]').forEach( btnPlay => {
+
+        const idVideo = btnPlay.getAttribute('wm-play')
+
+        const video = document.getElementById(idVideo)
+
+        video.oncontextmenu = () => false
+
+        video.ontimeupdate = function() {atualizaProgresso(idVideo, video)}
+
+        btnPlay.onclick = function() {
+            video.play()
+        }
+    } )   
+
+    function atualizaProgresso(idVideo, video) {
+        const tempoAtual = video.currentTime
+        const tempoTotal = video.duration
+        document.querySelectorAll('[wm-progresso]').forEach(pro => {
+            if (tempoAtual < tempoTotal) {
+                if (pro.getAttribute('wm-progresso') === idVideo) {
+                    pro.children[0].style.width = `${(tempoAtual/tempoTotal)*100}%`
+                }
+            }
+
+        })
+
+    }
+
+    document.querySelectorAll('[wm-pause]').forEach( btnPause => {
+
+        const idVideo = btnPause.getAttribute('wm-pause')
+
+        const video = document.getElementById(idVideo)
+
+        btnPause.onclick = function() {
+            video.pause()
+        }
+    } )
+
+
+</script>
+
+<style>
+    .progresso {
+        height: 20px;
+        width: 500px;
+        border: solid 1px #444;
+        margin: 20px;
+    }
+
+    .progresso > div {
+        background-color: red;
+        color: white;
+        height: 100%;
+        text-align: right;
+        font-size: 14px;
+        width: 0%;
+    }
+</style>
