@@ -10,7 +10,42 @@
     <div>Segundo</div>
     <div class="terceiro ultimo"><span wb-attrib>.terceiro .ultimo</span></div>
     <script>              
-        // ...
+        document.querySelector('#primeiro').classList.add('destaque') 
+        
+        //NodeList tem foreach, mas não tem outras funções importantes, como map, reduce
+
+        const selecionar = seletor => {
+            document.querySelectorAll(seletor).forEach(e => e.classList.add('destaque')) // Retorna um NodeList, que tem a função foreach, Diferente do getElementsByTagName .
+        }
+
+        const deselecionar = seletor => {
+            document.querySelectorAll(seletor).forEach(e => e.classList.remove('destaque')) // Retorna um NodeList, que tem a função foreach, Diferente do getElementsByTagName .
+        }
+
+        selecionar('div')
+
+        deselecionar('*') // todos os elementos
+ 
+        selecionar('.terceiro.ultimo') // todos os elementos que tenham a classe terceiro e ultimo ao mesmo tempo, independente da ordem que aparecem
+
+        deselecionar('*') // todos os elementos
+
+        selecionar(':not(#primeiro)') // seleciona todos que não sejam o com id primeiro
+
+        deselecionar('*')
+
+        selecionar(':nth-child(1)') // Primeiro filho de cada elemento. Vai pegar a primeira div, que é filha do body e o span dentro da terceira div
+
+        deselecionar('*')
+
+        selecionar('div:nth-of-type(1)') // primeiro elemento do tipo div
+
+        selecionar('span:nth-of-type(1)') // primeiro elemento do tipo span
+
+        deselecionar('*')
+
+        selecionar('[wb-attrib]')
+
     </script>
 </body>
 </html>
