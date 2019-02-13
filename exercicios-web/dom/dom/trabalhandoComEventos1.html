@@ -9,9 +9,25 @@
 
 <body class="conteudo exercicio">
     <div>
-        <a href="https://google.com.br">Google</a>
+        <!-- <a href="https://google.com.br" onclick="navegarEm5Segundos(event)">Google</a> -->
+        <a espera-um-pouco href="https://google.com.br">Google</a>
     </div>
     <script>
-        // ...
+
+        function navegarEm5Segundos(e) {
+            e.preventDefault()
+            console.log("saindo em 5s")
+            setTimeout(() => {
+                const link = e.target
+                window.location.href = link.href
+            }, 5000)
+        }
+
+        // document.querySelector('a').onclick = navegarEm5Segundos
+
+        const a = document.querySelector('[espera-um-pouco]') // É ideal fazer isso, para quem ler a tag a, saber que alguem pode manipular e fica mais fácil achar
+        a.onclick = navegarEm5Segundos
+
+
     </script>
 </body>
