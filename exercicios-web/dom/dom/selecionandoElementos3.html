@@ -28,10 +28,22 @@
             <option value="pt-br">Português (Brasil)</option>
             <option value="en-us">Inglês (Americano)</option>
         </select>
-        <button>Pesquisar</button>
+        <button name="btnPesquisar">Pesquisar</button>
     </form>
     <script>
-        // ...
+        console.log(document.forms) // HTMLColletion
+        console.log(document.forms[0])
+        console.log(document.getElementsByName('pesquisa')) // NodeList
+        console.log(document.getElementsByTagName('form')) // HTMLColletion
+        console.log(document.pesquisa) // Procura o elemento que tem o nome pesquisa
+        console.log(document.pesquisa.q) // Dentro do elemento pesquisa, pega o elemento q
+        document.pesquisa.q.value = 'Linux'
+        
+        console.log(document.pesquisa.hl.selectedIndex)
+        document.pesquisa.hl.value = 'en-us' // seleciona um combo pelo value
+        document.pesquisa.hl.selectedIndex = 1 // Seleciona um combo pelo index
+        // console.log(document.pesquisa.btnPesquisar.click()) Clica no botão pesquisar
+
     </script>
 </body>
 
