@@ -45,7 +45,29 @@
     </div>
     <div class="direita" wm-dropzone></div>
     <script>
-        // ...
+        const items = document.querySelectorAll('[wm-dropzone] .item')
+        items.forEach( (item, index) => {
+            item.draggable = true
+            item.id = item.id || `draggble-item-${index}`
+            item.ondragstart = e => e.dataTransfer.setData('item-id', e.target.id)
+            // Seta o id aqui, e quando soltar, no evento on drop, vai pegar esse id
+            
+        })
+
+        const dropzones = document.querySelectorAll('[wm-dropzone]')
+        dropzones.forEach(dropzone => {
+            dropzone.ondragover = e => e.preventDefault() // Precisa fazer isso, pois se não, não vai chamar os demais eventos que vão ser utilizados
+            dropzone.ondrop = function (e) {
+                const id = e.dataTransfer.getData('item-id')
+                const item = document.getElementById(id)   
+                // e.target.appendChild(item) // desta forma, caso largue um item em cima do outro, vai ficar em cascata. Não é errado, vai depender da necessidade. 
+                                           // Com isso, daria por exemplo, para agrupar itens e mover tudo junto
+                
+                dropzone.appendChild(item) // Assim, vai largar o item sempre na zona, mas que solte em cima de outro item.
+
+            }
+        })
+
     </script>
 </body>
 
