@@ -12,7 +12,31 @@
         Classes
     </div>
     <script>
-        // ...
+        const classes = document.querySelector('div').classList
+        console.log(classes)
+        classes.add('destaque')
+        classes.remove('destaque')
+        console.log("classes.toggle('destaque') ")
+        classes.toggle('destaque') // Se não tiver a classe destaque vai adicionar, e se já tiver vai remover
+
+        console.log("classes.contains('destaque')", classes.contains('destaque'))
+        console.log("classes.length", classes.length)
+        console.log("classes.toggle('destaque') ")
+        classes.toggle('destaque') // Se não tiver a classe destaque vai adicionar, e se já tiver vai remover
+
+        console.log("classes.length", classes.length)
+        
+        console.log("classes.toggle('destaque1') ")
+        classes.toggle('destaque1') // Se não tiver a classe destaque vai adicionar, e se já tiver vai remover
+        console.log("classes.toggle('destaque2') ")
+        classes.toggle('destaque2') // Se não tiver a classe destaque vai adicionar, e se já tiver vai remover
+
+        for(let c of classes) {
+            console.log('classe', c)
+        }
+
+        classes.forEach(c => console.log('classe', c))
+
     </script>
 </body>
 
