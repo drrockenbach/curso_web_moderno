@@ -19,10 +19,16 @@
 
         const lista = document.querySelector('#compras')
 
-        // somente leitura
+        // somente leitura, não vai alterar o html
         console.log("lista.attributes", lista.attributes)
-        console.log("lista.attributes[0]", lista.attributes[0])
-        console.log("lista.attributes.destino", lista.attributes.destino)
+        console.log("lista.attributes[0]", lista.attributes[0]) // Da pra acessar a partir do indice
+        console.log("lista.attributes.id", lista.attributes.id) // 
+        console.log("lista.attributes[1]", lista.attributes[1])
+        console.log("lista.attributes.destino", lista.attributes.destino) // a partir do nome
+        //console.log("lista.attributes.data-urgencia", lista.attributes.data-urgencia) // Assim não funciona pois o atributo não segue o padrão de nomes da linguagem. 
+                                                                                      //  Da erro de execução
+        console.log("lista.attributes[2]", lista.attributes[2])
+        console.log("lista.attributes['data-urgencia']", lista.attributes['data-urgencia']) // Assim funciona
 
     </script>
 </body>
