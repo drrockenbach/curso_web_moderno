@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid #02</title>
+    <style>
+        html,
+        body {
+            margin: 20px;
+            height: calc(100% - 40px);
+            background-color: lightgray;
+        }
+        
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: solid 5px dodgerblue;
+            background: #fff;
+        }
+
+        body {
+            display: grid;
+            grid-template-columns: 
+            [inicio] 1fr 
+            [metade-1 meio-1] 1fr 
+            [metade-2 meio-2] 1fr [fim]; /* [inicio] da nome para as colunas. Não é visual. Pode dar dois nomes, como na coluna do meio */
+            grid-template-rows: repeat(3, 1fr);
+
+            grid-column-gap: 20px; /* Coloca um gap, espaço entre as colunas */
+            grid-row-gap: 20px; /* Coloca um gap entre as linhas */
+            grid-gap: 50px 10px; /* 50px nas linhas e 10px nas colunas */
+            grid-gap: 10px; /* 10px tanto para linhas e colunas */
+        }
+
+        .d1 {
+            grid-column-start: metade-2; /* nome faz referência ao definido anteriormente */
+            grid-column-end: fim;
+            grid-column: meio-1 / fim; /* Mesma coisa que o acima com start e end, só que em apenas um comando */
+            grid-row: 1 / span 2;
+
+            /* row-start column-start row-end column-end */
+            grid-area: 1 / meio-1 / span 3 / fim; /* segue o modelo acima. Vai sair da linha 1 e vai dar span 3, e a partir da coluna meio-1 até fim  */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="d1">1</div>
+    <div class="d2">2</div>
+    <div class="d3">3</div>
+</body>
+
+</html>

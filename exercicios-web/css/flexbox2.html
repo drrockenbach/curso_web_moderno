@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flexbox #02</title>
+    <link rel="stylesheet" href="css/tag.css">
+    <style>
+
+        div {
+            border: solid 5px dodgerblue;
+            font-size: 40px;
+        }
+
+        .flex-container div {
+            box-sizing: border-box;
+            width: 100px;
+            flex-grow: 0;
+            flex-grow: 1; /* Faz com que todos os elementos cresçam proporcionalmente conforme o espaço que está sobrando*/
+        }
+
+        .flex-container div:nth-child(1) { /* Pega o primeiro elemento que foi definido no HTML, que não necessariamente é o primeiro que aparece na tela. */
+            flex-grow: 2; /* Determina que este elemento vai crescer duas vezes com o espaço restante */
+        }
+
+        .flex-container {
+            display: flex;
+            height: 300px;
+            width: 600px;
+        }
+
+        /* Pega dentro de flex-container pega o terceiro filho do tipo div (no css começa de 1 e não de zero)*/
+        .flex-container div:nth-child(3) {
+            background-color: indianred;
+            order: 1; /* Por padrão, a ordem de todos os elementos é zero. Colocando ordem 1, quer dizer que vai ir mais para o final*/
+            order: -1; /* permite ordem negativa */
+            align-self: center;
+            align-self: flex-end;
+            align-self: stretch ; /* Default */
+        }
+
+        .flex-container {
+            width: 300px;
+            flex-shrink: 1; /* O contrário do flex-grow, encolhe os elementos */
+        }
+        
+        .flex-container div:nth-child(1) {
+            flex-shrink: 5;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="flex-container tag nolabel">
+        <div class="tag nolabel">1</div>
+        <div class="tag nolabel">2</div>
+        <div class="tag nolabel">3</div>
+        <div class="tag nolabel">4</div>
+    </div>
+    <script src="js/tag.js"></script>
+</body>
+
+</html>

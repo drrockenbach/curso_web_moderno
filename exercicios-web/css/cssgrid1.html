@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid #01</title>
+    <style>
+        /* https://caniuse.com/#feat=css-grid */
+        
+        html,
+        body {
+            margin: 20px;
+            height: calc(100% - 40px);
+            background-color: lightgray;
+        }
+        
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: solid 5px dodgerblue;
+            background: #fff;
+        }
+
+        /* O flex box trabalha com apenas uma dimensão, ou linha ou coluna.
+        O css grid trabalho com duas dimensões, linha e coluna */
+
+        body {
+            display: grid;
+            grid-template-columns: 50% 50%; /* Grid com duas colunas, cada uma com 50% do espaço */
+            grid-template-columns: repeat(4, 8.33% 8.33% 8.33%); /* Repete a quantidade de vezes definida no primeiro parâmetro os valores informados nos demais parâmetros,
+                                                                 ou seja, vai criar 12 colunas com 8.33%, pois vai pegar e fazer 4 vezes o 8.33%, 8.33%, 8.33%.
+                                                                 Seria a mesma coisa que utilizar repeat(12, 8.33%) */
+            grid-template-columns: repeat(4, 8.33%);
+            grid-template-columns: repeat(11, 100px) 200px; /* adiciona 11 colunas com 100px e uma com 200px */
+
+            /*  minmax(100px, 300px); define que a coluna deve ter no mínimo 100 e no máximo 300px */ 
+            grid-template-columns: 200px 20% 1fr; /* Define 3 colunas. A primeira vai ter 200 px, a segunda 20% do espaço restante e a terceira um fragmento, 
+                                                    ou seja, todo o resto que sobrou  */
+            grid-template-columns: 3fr 6fr 3fr; /* a primeira coluna pega 3 partes do total, a segunda 6 e a terceira 3 */
+            grid-template-rows: 50% 25% 12.5% 12.5%; /* Define o tamanho para as 4 linhas*/
+            grid-template-rows: 100px 1fr; /* Vai utilizar os valores para 2 primeiras linhas, e as demais vai pegar o valor restante, 
+                                              que é o tamanho necessário para renderizar o tamanho necessário*/
+            grid-template-rows: 100px auto auto auto; /* Primeira 100px, as demais automático, igualitário*/                                               
+        }
+
+        .d8 { /* É tipo um colspan, determina que vai ocupar o espaço a partir da coluna 2 até a 4 */
+            grid-column-start: 2;
+            grid-column-end: 4;
+        }
+
+        .d8 { /*Mesmo resultado do anterior, começa na coluna 2 e espande duas colunas */
+            grid-column-start: 2;
+            grid-column-end: span 2;
+            grid-row-start: 3; /* Mesma lógica das colunas para as linhas. 
+                                Da pra fazer a mesma lógica da coluna com o span 2 */
+            grid-row-end: 5;
+        }
+
+        .d10,
+        .d11 {
+            /* podem se sobrepor */
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 5;
+            grid-row-end: span 1; /* Vai acabar sobrepondo as duas divs */
+        }
+
+        .d10 {
+            z-index: 10; /* Vai fazer esse elemento ficar na frente do 11 */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="d1">1</div>
+    <div class="d2">2</div>
+    <div class="d3">3</div>
+    <div class="d4">4</div>
+    <div class="d5">5</div>
+    <div class="d6">6</div>
+    <div class="d7">7</div>
+    <div class="d8">8</div>
+    <div class="d9">9</div>
+    <div class="d10">10</div>
+    <div class="d11">11</div>
+    <div class="d12">12</div>
+</body>
+
+</html>

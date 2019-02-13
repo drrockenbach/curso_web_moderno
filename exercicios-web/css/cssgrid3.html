@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid #03</title>
+    <link rel="stylesheet" href="css/tag.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            grid-area: cabecalho;
+        }
+
+        nav {
+            grid-area: navegacao;
+        }
+
+        main {
+            grid-area: conteudo;
+        }
+
+        footer {
+            grid-area: rodape;
+        }
+
+        body {
+            display: grid;
+            min-height: 100vh; /* Altura total */
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: 100px 1fr 100px;
+            grid-template-areas:  /* define que a primeira linha as duas colunas serão utilizadas pelo cabecalho, na segunda linha a primeira coluna pela navagecao e segunda conteudo */ 
+            'cabecalho cabecalho' /* e as duas colunas da última linha pelo rodapá*/
+            'navegacao conteudo' /* Essa lógica está relacionado com as propriedades acima, que estão setando duas colunas e 3 linhas */
+            'rodape rodape'
+        }
+
+        @media(max-width: 700px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-rows: 80px 80px 1fr 100px;
+                grid-template-areas: 
+                'cabecalho'
+                'navegacao'
+                'conteudo'
+                'rodape'
+            }
+        }
+
+        /* Se quiser tirar um dos conteúdos, por exemplo o cabecalho */
+        @media(max-width: 700px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-rows: 80px 1fr 100px; /* Tira uma das colunas*/
+                grid-template-areas: /* E remove a area do cabeçalho */
+                'navegacao'
+                'conteudo'
+                'rodape'
+            }
+
+            header { /* Com isso é necessário dar um display: none na area do cabeçalho, pois se não quebra o layout */
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <main class="tag">CONTEÚDO</main>
+    <header class="tag">CABEÇALHO</header>
+    <footer class="tag">RODAPÉ</footer>
+    <nav class="tag">NAVEGAÇÃO</nav>
+
+    <script src="js/tag.js"></script>
+</body>
+
+</html>
