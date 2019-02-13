@@ -10,6 +10,23 @@
 <body class="conteudo exercicio">
     <div>Elemento</div>
     <script>
-        // ...
+        
+        const item = document.querySelector('div')
+        item.style.position = 'absolute'
+
+        item.onmousemove = e => {
+            const item = e.target // representa a div que foi clicada, o item que disparouy o evento
+            item.style.cursor = 'move'
+            
+            if (e.buttons) { // Se tiver clicado, vai estar diferente de zero
+
+                // O cursor vai para o centro da div
+
+                item.style.top = `${e.clientY - (item.clientHeight / 2)}px` // Altera a posição em relação ao topo. Vai mover só no eixo Y
+                item.style.left = `${e.clientX - (item.clientWidth / 2)}px` // Altera a posição em relação a esquerda. Vai mover só no eixo X, 
+                                                                            // permitindo mover em todas as direções
+            }
+        }
+
     </script>
 </body>
