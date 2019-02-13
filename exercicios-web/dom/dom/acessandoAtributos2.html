@@ -10,14 +10,42 @@
 <body class='conteudo exercicio'>
     <div>
         <label for="compras">Compras</label>
-        <ul id="compras" destino='escritório' data-urgencia="5">
+        <ul id="compras" destino='escritório' data-urgencia="5" data-teste="vai aparecer no dataset">
             <li>Café</li>
             <li>Água</li>
             <li>Copo Descartável</li>
         </ul>
     </div>
     <script>
-        // ...
+        const lista = document.querySelector('div ul[destino="escritório"]') // Para testar seletores. Pega uma ul, que tenha a propriedade destino 
+                                                                             // com o valor escritório e esteja dentro de uma div. Daria para pegar direto pelo id compras
+
+        console.log('Elemento "ul" ...............')
+        console.log('childNodes ', lista.childNodes)
+        console.log('destino', lista.destino) // não funciona pois é um atributo não default, é um atributo personalizado, vai dar undefined
+        console.log('lista.getAttribute("destino")', lista.getAttribute('destino'))
+        console.log('hasAttribute("destino")', lista.hasAttribute('destino'))
+
+        lista.setAttribute('destino', 'empresa')
+        lista.setAttribute('status', 'aberto')
+
+        lista.removeAttribute('destino')
+
+        /* Os atributos iniciados com "data-", como o "data-urgencia" no "ul", são tratados de forma diferente */
+
+        console.log(lista.dataset) // Retorna a lista de atributos personalidados iniciados com "data-"
+        console.log("lista.dataset.urgencia", lista.dataset.urgencia) // Para esses atributos, da pra acessar como atributos normais
+        lista.dataset.urgencia = 4
+        console.log("lista.getAttribute('data-urgencia')", lista.getAttribute('data-urgencia'))
+
+        const label = document.querySelector('label') 
+
+        console.log("label.for", label.for) // Não funciona assim, pois for é um nome reservado
+        console.log("label.htmlFor", label.htmlFor) // Deve acessar o atributo for assim
+        console.log("label.getAttribute('for')", label.getAttribute('for')) // Ou acessar assim 
+        console.log("label.getAttribute('htmlFor')", label.getAttribute('htmlFor')) // Assim não funciona. Retorna null
+
+
     </script>
 </body>
 
