@@ -35,4 +35,14 @@ app.post('/upload', (req, res) => {
     })
 })
 
+app.post('/formulario', (req, res) => {
+    setTimeout(() => { // Timeout só pra simular uma demora maior
+        res.send({
+            ...req.body,
+            id: 1
+        })
+    }, 2000);
+    
+})
+
 app.listen(8081, () => console.log('Executando servidor....'))
