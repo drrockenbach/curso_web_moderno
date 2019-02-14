@@ -11,6 +11,50 @@
     <h1>Estados</h1>
 
     <script>
-        // ...
+        function ajax(config) {
+            const xhr = new XMLHttpRequest()
+            xhr.open(config.metodo, config.url, true)
+
+            // onreadystatechange	Defines a function to be called when the readyState property changes
+            // readyState	Holds the status of the XMLHttpRequest.
+            // 0: request not initialized 
+            // 1: server connection established
+            // 2: request received 
+            // 3: processing request 
+            // 4: request finished and response is ready
+
+            xhr.onreadystatechange = e => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        config.sucesso(xhr.responseXML)
+                    } else if (xhr.status >= 400) {
+                        config.erro({
+                            codigo: xhr.status,
+                            texto: xhr.statusText
+                        })
+                    }
+                }
+            }
+
+            xhr.send()
+        }
+
+        ajax({
+            url: 'dados/estados.xml',
+            metodo: 'get',
+            sucesso(resposta) {
+                const estados = resposta.getElementsByTagName('estado')
+                const htmlLIs = Array.from(estados).reduce( 
+                    (html, estado)  => html + `<li>${estado.attributes.nome.value}</li>` ,'' // O '' representa o inicio do reduce, ou seja, uma string vazia
+                )
+
+                document.body.insertAdjacentHTML('beforeend', `<ul>${htmlLIs}</ul>`)
+            },
+            erro(e) {
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg)
+            }
+
+        })
     </script>
 </body>
