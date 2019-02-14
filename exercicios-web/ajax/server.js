@@ -4,6 +4,8 @@ const express = require('express')
 const app = express()
 
 app.use(express.static('.')) // Isso quer dizer, que dentro da pasta raiz, ".", é pra servir todos os arquivos estáticos, ou seja, todos os arquivos.
+                             // Se tirar isso, não terá acesso ao index.html, por exemplo
+                             
 app.use(bodyParser.urlencoded({extended: true})) // Se vier um submit com o formulário, esse será o responsável por transformar em objeto. Aplica para todas as requisições
 
 // app.use('/clintes', bodyParser.urlencoded({extended: true})) // Da pra especificar assim também, dizendo em qual url aplicar
