@@ -14,6 +14,28 @@
     <div id="post"></div>
 
     <script>
-        // ...
+        function exibirResultado(id, dados) {
+            const texto = JSON.stringify(dados)
+            document.getElementById(id).innerHTML = texto
+        }
+
+        const parametros = {
+            numero: 5
+        }
+        // da pra fazer assim, pois o padrão é get, ou então conforme abaixo, que acho que é mais claro
+        // axios('parOuImpar?numero=9')
+        //     .then(resp => exibirResultado('get', resp.data))
+
+        axios.get('parOuImpar', parametros)
+            .then(resp => exibirResultado('get', resp.data))
+
+
+        const formParam = {
+            nome: 'João',
+            sobrenome: 'Silva'
+        }
+        exibirResultado('post', 'Realizando consulta, aguarde...')
+        axios.post('formulario', formParam)
+        .then(resp => exibirResultado('post', resp.data))
     </script>
 </body>
