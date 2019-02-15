@@ -25,6 +25,38 @@
     </nav>
     <div class="pagina"></div>
     <script>
-        // ...
+        function navegarViaAjax(url, seletor, push = true) {
+            if (!url || !seletor) return
+            const elemento = document.querySelector(seletor)
+            fetch(url)
+            .then(resp => resp.text())
+            .then(html => {
+                elemento.innerHTML = html
+                if (push) { // Isso adiciona a navegação no historico do browser, para ser possível utilizar o botão de voltar e não sair da página
+                            // Só deve fazer isso ao utilizar os links, no botão voltar não deve entrar aqui
+                            // Está adicionando o seletor dentro do state para utilizar depois no onpopstate
+                            // Isso também vai fazer com que a URL da página que está sendo acessada seja mostrada na URL e não apenas a index
+                    history.pushState({ seletor }, "Título", url)
+                }
+            })
+        }
+
+        document.querySelectorAll('[wm-link]').forEach(link => {
+            const url = link.attributes['wm-link'].value
+            const seletorDestino = link.attributes['wm-destino'].value
+
+            link.onclick = e => {
+                e.preventDefault()
+                navegarViaAjax(url, seletorDestino)
+            }
+        })
+
+        // Evento que é acionado ao voltar pelo browser. onpopstate, quer dizer que tirou um elemento da pilha de histórico.
+        window.onpopstate = e => {
+            if (e.state) {
+                navegarViaAjax(window.location.href, e.state.seletor, false)
+            }
+        }
+
     </script>
 </body>
