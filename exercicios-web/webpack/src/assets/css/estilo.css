@@ -1,4 +1,8 @@
 
 body {
     background-color: red;
+    background-image: url(../imgs/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 10vh;
 }
