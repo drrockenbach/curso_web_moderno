@@ -20,6 +20,41 @@
     <input type="text" placeholder="Cor de Background">
 
     <script>
-        // ...
+        function mostrarPosicaoMouse(e) {
+            $('#posicao').html(`x: ${e.clientX} y: ${e.clientY}`)
+        }
+        $('body').on('mousemove', mostrarPosicaoMouse)
+        
+        $('#posicao').mouseover(e => { // Quando entrar no componente de id #posição, desabilita o evento
+            $('body').off('mousemove', mostrarPosicaoMouse) // Remove o evento associado ao "mousemove"
+        })
+        $('#posicao').mouseleave(e => { // Quando sair do componente de id #posição, habilita o evento
+            $('body').mousemove(mostrarPosicaoMouse)
+        })
+        let cliques = 0
+        $('body').click(e => {
+            $('#cliques').html(`Cliques: ${++cliques}`)
+        })
+        const backgroundOriginal = $('body').css('background-color')
+
+        $('input').keyup(e => {
+            console.log(this) // vai retornar o window, pois o this é o contexto de fora
+        })
+
+        $('input').keyup(function (e) {
+            console.log(this) // Vai retornar o elemento "input" selecionado
+        })
+
+        // Neste caso, não poderia utilizar uma função arrow no onkeyup, pois está sendo utilizando o this para pegar o val. 
+        // Quando passa uma arrow function, o this referencia o window e dará erro. Acima exemplos do retorno do this
+        $('input').keyup(function (e) {
+            const valor = $(this).val()
+            if (valor.match(/#[\da-fA-F]{6}/)
+                || valor.match(/#[\da-fA-F]{3}/)) {
+                $('body').css('background-color', valor)
+            } else {
+                $('body').css('background-color', backgroundOriginal)
+            }
+        })
     </script>
 </body>
