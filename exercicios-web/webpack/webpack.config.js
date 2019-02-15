@@ -12,6 +12,10 @@ module.exports = {
         filename: 'principal.js',
         path: __dirname + '/public'
     },
+    devServer: {
+        contentBase: "./public",
+        port: 9000
+    },
     optimization: { // Para minificar o css, que por default não é feito como o JS OBS: Só minifica quando for production
         minimizer: [
             new UglifyJsPlugin({
