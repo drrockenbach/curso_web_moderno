@@ -54,6 +54,7 @@
         // Evento que é acionado ao voltar pelo browser. onpopstate, quer dizer que tirou um elemento da pilha de histórico.
         window.onpopstate = e => {
             if (e.state) {
+                // Vai pegar as informações da pilha de histórico de navegação para navegar com o metodo criado.
                 navegarViaAjax(window.location.href, e.state.seletor, false)
             }
         }
