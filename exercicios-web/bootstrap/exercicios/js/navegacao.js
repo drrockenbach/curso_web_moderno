@@ -12,6 +12,9 @@
             .then(resp => resp.text())
             .then(html => {
                 destino.innerHTML = html
+                eval(html.match(/\<script\>([\s\S]*)\<\/script\>/)[1]) // Pega qualquer coisa que esteja dentro de uma tag script
+                        // [\s\S]* - É tipo um .*, ou seja, pega tudo. Só que o .* não funciona quando tem quebra de linha
+                        // A funcao eval invoca tudo
             })
     }
 

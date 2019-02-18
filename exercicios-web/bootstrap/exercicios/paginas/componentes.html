@@ -141,6 +141,16 @@
 
 <!-- Tooltip -->
 
+<div>
+    <div class="alert alert-warning">
+        Precisa chamar uma função JS
+        <strong>e Agora?</strong>
+    </div>
+    <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Pense antes!">
+        Excluir
+    </button>
+</div>
+
 <h1 class="mt-5">6. Slider -
     <small>
         <a href="https://getbootstrap.com/docs/4.0/components/carousel/" target="_black">Documentação Oficial</a>
@@ -160,5 +170,9 @@
 <!-- Accordion -->
 
 <script>
-    // ...
+   // Tudo que está aqui, não vai funcionar em função de o conteúdo estar sendo trazido para a tela por ajax. 
+   // para funcionar, tem que ser utilizado a função eval, conforme tem no arquivo navegacao.js, logo apos o código
+   // "destino.innerHTML = html"
+
+   $('[data-toggle="tooltip"]').tooltip()
 </script>
