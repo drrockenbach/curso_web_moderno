@@ -1,5 +1,6 @@
 
 import $ from "jQuery"
+import { onLoadHtmlSuccess } from '../core/includes'
 
 const duration = 300
 
@@ -35,7 +36,7 @@ $.fn.cityButtons = function() {
     })
 
     //Cria botão todas
-    const btnAll = $('button').addClass(['btn', 'btn-info', 'active']).html('Todas')
+    const btnAll = $('<button>').addClass(['btn', 'btn-info', 'active']).html('Todas')
     btnAll.click(e => filterByCity(null))
     btns.push(btnAll)
 
@@ -48,4 +49,6 @@ $.fn.cityButtons = function() {
     return this
 }
 
-$('[wm-city-buttons').cityButtons()
+onLoadHtmlSuccess(function () {
+    $('[wm-city-buttons').cityButtons()
+})
