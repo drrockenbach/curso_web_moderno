@@ -4,10 +4,21 @@ import './Calculator.css'
 import Button from '../components/Button'
 import Display from '../components/Display'
 
+const initialState = {
+    displayValue: '0',
+    clearDisplay: false,
+    operation: null,
+    values: [0,0],
+    current: 0
+}
+
+
 export default class Calculator extends Component {
 
+    state = {...initialState}
+
     clearMemory() {
-        console.log("limpar")
+        this.setState({...initialState})
     }
 
     setOperation(operation) {
@@ -15,7 +26,30 @@ export default class Calculator extends Component {
     }
 
     addDigit(n) {
-        console.log(n)
+        // Se já tiver ponto no valor informado, e tentar adicionar novamente, ignora
+        if (n === '.' && this.state.displayValue.includes('.')) {
+            return
+        }
+
+        // Se só tiver o zero no display, quer dizer que o usuário começou a digitar, aí limpa o display pra por o valor digitado, ou
+        // se o state.clearDisplay estiver true
+        const clearDisplay = this.state.displayValue === '0' 
+            || this.state.clearDisplay
+
+        const currentValue = clearDisplay ? '' : this.state.displayValue
+        const displayValue = currentValue + n
+
+        this.setState({displayValue, clearDisplay: false})
+
+        if (n !== '.') {
+            const i = this.state.current // current = indice 
+            const newValue = parseFloat(displayValue)
+            const values = [...this.state.values]
+            values[i] = newValue
+            this.setState({ values })
+            console.log(values)
+        }
+        
     }
 
     render() {
@@ -25,7 +59,7 @@ export default class Calculator extends Component {
 
         return (
             <div className="calculator">
-                <Display value={10000000} />
+                <Display value={this.state.displayValue} />
                 <Button label={"AC"} triple click={() => this.clearMemory()}></Button>
                 <Button label={"/"} operation click={setOperation}></Button>
                 <Button label={"7"} click={n => this.addDigit(n)}></Button>
@@ -41,7 +75,7 @@ export default class Calculator extends Component {
                 <Button label={"3"} click={n => this.addDigit(n)}></Button>
                 <Button label={"+"} operation  click={setOperation}></Button>
                 <Button label={"0"} double click={n => this.addDigit(n)}></Button>
-                <Button label={"."} click={n => this.addDigit(n)></Button>
+                <Button label={"."} click={n => this.addDigit(n)}></Button>
                 <Button label={"="} operation  click={setOperation}></Button>
             </div>
         )
