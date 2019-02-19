@@ -5,6 +5,7 @@ import BomDia from './componentes/BomDia'
 
 import { BoaNoite, BoaTarde } from './componentes/Multiplos'
 import Saudacao from './componentes/Saudacao'
+import Pai from './componentes/Pai'
 // import Multi from './componentes/Multiplos'
 
 // ReactDOM.render(<Primeiro></Primeiro>, document.getElementById('root') )
@@ -21,5 +22,10 @@ import Saudacao from './componentes/Saudacao'
 //     <Multi.BoaNoite nome="Diomar" />
 //     </React.Fragment>, document.getElementById('root') )
 
-ReactDOM.render(
-    <Saudacao tipo="Bom dia" nome="Diomar"></Saudacao>, document.getElementById('root') )
+const app = <React.Fragment>
+    <Saudacao tipo="Bom dia" nome="Diomar"></Saudacao>
+    <Pai nome="Diomar" sobrenome="Rockenbach" />
+</React.Fragment>
+
+ReactDOM.render(app
+    , document.getElementById('root') )
