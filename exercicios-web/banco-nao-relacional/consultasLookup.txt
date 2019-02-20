@@ -1,11 +1,27 @@
+
+// Busca empresa Bradesco, e faz um lookup, que serve pra buscar dados agragados, no caso estado
 db.empresas.aggregate([
     {$match: {nome: "Bradesco"}},
-    {$lookup: {
-        from: "estados",
-        localField: "estadoId",
-        foreignField: "_id",
+    {$lookup: { // Estilo join
+        from: "estados", 
+        localField: "estadoId", // FK 
+        foreignField: "_id", // Campo dentro do documento estado que faz a relação com localField
         as: "estado"
     }},
-    {$unwind: "$estado"},
-]).pretty()
+    {$unwind: "$estado"}, // traz direto um objeto estado junto. 
+]).pretty()               // Se não fizer o unwind, traz um array com os estados, no caso seria apenas um. Então traria um array de 1 estado
+
+db.empresas.aggregate([
+    {$match: {nome: "Vale"}},
+    {$lookup: { // Estilo join
+        from: "estados", 
+        localField: "cidadeId", // FK 
+        foreignField: "cidades._id", //
+        as: "estado"
+    }},
+    {$unwind: "$estado"}, 
+    {$unwind: "$estado.cidades"}, 
+    {$addFields: {mesmaCidade: {$cmp:["$estado.cidades._id", "$cidadeId"]}}}, // Adiciona um atributo que diz que se a cidade é a mesma da Vale. Retorna -1, 0 ou 1, sendo zero igual e um maior
+    {#match: {mesmaCidade: 0}}
+]).pretty()               
 
