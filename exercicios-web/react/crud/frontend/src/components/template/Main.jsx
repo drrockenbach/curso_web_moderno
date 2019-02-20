@@ -4,6 +4,6 @@ import Header from './Header'
 
 export default props => 
     <React.Fragment>
-        <Header></Header>
+        <Header {...props} />
         <main className="content">Conteúdo</main>
     </React.Fragment>
