@@ -1,7 +1,13 @@
+// Traz todos os estados, retornando apenas as colunas nome e as cidades, com apenas o campo nome
 db.estados.aggregate([
     { $project: {nome: 1, "cidades.nome": 1, _id: 0} }
 ])
 
+// Traz a populacao de todos os estados, para isso, somando a populacao de cada cidade, e traz a sigla.
+db.estados.aggregate([     { $project: {populacao: {$sum: "$cidades.populacao"}, sigla: 1, _id: 0} }])
+
+// Continuação do comando acima, agora agrupando, utilizando como critério de agregação o id, ou seja, null, agrupa tudo
+// Retorna apenas populacaoTotal
 db.estados.aggregate([
     { $project: {populacao: {$sum: "$cidades.populacao"}, sigla: 1, _id: 0} },
     { $group: {_id: null, populacaoTotal: {$sum: "$populacao" }} },
