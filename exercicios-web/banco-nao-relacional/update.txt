@@ -1,7 +1,10 @@
+// update no estado de SP, e o $Set inclui um novo campo. No caso o campo populacao não existe no estado, vai passar a existir.
 db.estados.update({sigla: "SP"},{$set: {populacao: 45340000}})
 
+// Alagoas ainda não tem cidade, então da pra usar o set. Caso contrário, substituiria todas as cidades pelas passadas
 db.estados.update({sigla: "AL"},{$set: {cidades: [{nome: "Sergipe"}]}})
 
+// Para inserir um registro dentro de cidades, utilizar o comando push. Nesse caso, santos ainda não existe, então vai adicionar
 db.estados.update(
     {sigla: "SP"},
     {$push: {cidades: {nome: "Santos", populacao: 433966}}}

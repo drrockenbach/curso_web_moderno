@@ -8,7 +8,7 @@ db.estados.aggregate([
     { $match: {"cidades.nome": "Sorocaba"} },
     { $unwind: "$cidades"}]).pretty()
 
-EX: Deixei só alguns campos para não ficar tão grande
+EX: Deixei só alguns campos para não ficar tão grande. O id não está abaixo por que tirei, mas ele vai estar no retorno da consulta
 
 {"nome" : "São Paulo",
         "cidades" : {
