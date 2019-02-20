@@ -1,3 +1,33 @@
+// busca  cidades quando nome for Sorocaba
+db.estados.aggregate([
+    { $match: {"cidades.nome": "Sorocaba"} }])
+
+// O unwind vai trazer um documento estado para cada cidade com apenas uma cidade, conforme exemplo abaixo.
+
+db.estados.aggregate([
+    { $match: {"cidades.nome": "Sorocaba"} },
+    { $unwind: "$cidades"}]).pretty()
+
+EX: Deixei só alguns campos para não ficar tão grande
+
+{"nome" : "São Paulo",
+        "cidades" : {
+                "nome" : "Campinas",
+        }
+}
+{"nome" : "São Paulo",
+        "cidades" : {
+                "nome" : "Guarulhos",
+        }
+}
+{"nome" : "São Paulo",
+        "cidades" : {
+                "nome" : "Sorocaba",
+        }
+}
+
+// depois do unwind, pega apenas as cidades que sejam Sorocaba e retorna apenas o ID
+
 db.estados.aggregate([
     { $match: {"cidades.nome": "Sorocaba"} },
     { $unwind: "$cidades"},
