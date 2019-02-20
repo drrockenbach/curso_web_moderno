@@ -6,11 +6,18 @@ import Logo from '../components/template/Logo'
 import Home from '../components/home/Home'
 import Nav from '../components/template/Nav'
 import Footer from '../components/template/Footer'
+import { HashRouter, BrowserRouter } from 'react-router-dom'
+import Routes from './Routes'
+
+/* BrowserRouter - Pode ter que configurar alguma coisa em produção */
 
 export default props =>
-<div className="app">
-    <Logo></Logo>
-    <Nav></Nav>
-    <Home/>
-    <Footer></Footer>
-</div>
+
+    <BrowserRouter>
+        <div className="app">
+            <Logo></Logo>
+            <Nav></Nav>
+            <Routes />
+            <Footer></Footer>
+        </div>
+    </BrowserRouter>
