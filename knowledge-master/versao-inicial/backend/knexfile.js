@@ -3,24 +3,17 @@
 /*
 Para criar este arquivo, após ter instalado o knex global, com comando npm i -g knex.
 Rodar o comando knex init. Esse é o arquivo de configuração de conexão com o banco de dados (bancos relacionais)
+Esse arquivo vai ser importado dentro de config/db.js
 */
 
 
 module.exports = {
 
-  development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    }
-  },
-
-  staging: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: 'knowledge',
+      user:     'postgres',
+      password: 'root'
     },
     pool: {
       min: 2,
@@ -29,22 +22,5 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
 
 };
