@@ -93,7 +93,6 @@ module.exports = app => {
     }
 
     const get = (req, res) => {
-
         app.db('categories') 
             .then(categories => res.json(withPath(categories)))
             .catch(err =>  { console.log(err) 
