@@ -11,6 +11,7 @@ app.db = db;
 // E lê as pastas definidas também, já carregando os métodos dos arquivos dessas pastas. olhar routes.js para melhor entendimento
 consign()
     .then('./config/middlewares.js')
+    .then('./api/validation.js') // É necessário especificar aqui pois se não pode ocorrer de dar erro ao subir o servidor, pois ele carrega o "user.js" antes do validation, aí ele não reconhece o validation dentro do user
     .then('./api')
     .then('./config/routes.js')
     .into(app) 
