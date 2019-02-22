@@ -108,5 +108,34 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, remove, get, getById }
+    const toTree = (categories, tree) => {
+        // Se tree estiver vazio, ou seja, a primeira vez que entrar, filtra todas as categorias que não tem pai
+        // Serão os menus raizes
+        if (!tree) tree = categories.filter(c => !c.parentId)
+
+        // console.log("categorias: ", categories)
+        // console.log("tree: ", tree)
+        
+        // Para cada menu raiz
+        tree = tree.map(parentNode => {
+
+            // console.log("parentNode: ", parentNode)
+
+            // Função para verificar se uma categoria passada é filha do item atual do map 
+            const isChild = node => node.parentId == parentNode.id
+            
+            //chama de forma recursiva o toTree, passando todas as categorias e passando também apenas as categorias filhas da categoria atual
+            parentNode.children = toTree(categories, categories.filter(isChild))
+            return parentNode
+        })
+        return tree
+    }
+
+    const getTree = (req, res) => {
+        app.db('categories')
+            .then(categories => res.json(toTree(withPath(categories))))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, remove, get, getById, getTree }
 }

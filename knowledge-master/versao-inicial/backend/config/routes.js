@@ -15,6 +15,10 @@ module.exports = app => {
         .get(app.api.category.get)
         .post(app.api.category.save)
     
+    // Cuidado com a Ordem! Deve ficar antes de /categories/:id, pois se não pode interpretar o tree como o param :id
+    app.route('/categories/tree')
+        .get(app.api.category.getTree)
+
     app.route('/categories/:id')
         .get(app.api.category.getById)
         .put(app.api.category.save)
