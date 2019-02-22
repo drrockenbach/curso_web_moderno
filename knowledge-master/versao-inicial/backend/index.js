@@ -18,6 +18,7 @@ consign()
     .then('./config/middlewares.js')
     .then('./api/validation.js') // É necessário especificar aqui pois se não pode ocorrer de dar erro ao subir o servidor, pois ele carrega o "user.js" antes do validation, aí ele não reconhece o validation dentro do user
     .then('./api')
+    .then('./schedule')
     .then('./config/routes.js')
     .into(app) 
 
