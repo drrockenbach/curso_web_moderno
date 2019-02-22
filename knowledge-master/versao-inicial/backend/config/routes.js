@@ -7,4 +7,7 @@ module.exports = app => {
 
     app.route('/users/:id') // Para update quando for put
         .put(app.api.user.save)
+    
+    app.route('/users/:id')
+        .get(app.api.user.getById)
 }
