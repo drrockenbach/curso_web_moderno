@@ -14,13 +14,11 @@ module.exports = app => {
         // O próprio consign, quando for dito para ele carregar a pasta api, lá dentro do arquivo index.js, vai disponibilizar os métodos do users.js
         // O caminho fica igual o caminha das pastas. No caso a pasta é api, arquivo user.js método save, por isso fica app.api.user.save
 
-    app.route('/users/:id') // Para update quando for put
-        .all(app.config.passport.authenticate())
-        .put(admin(app.api.user.save))
-    
     app.route('/users/:id')
         .all(app.config.passport.authenticate())
+        .put(admin(app.api.user.save))
         .get(admin(app.api.user.getById))
+        .delete(admin(app.api.user.remove))
     
     app.route('/categories')
         .all(app.config.passport.authenticate())
