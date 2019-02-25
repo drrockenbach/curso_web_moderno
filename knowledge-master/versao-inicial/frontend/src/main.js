@@ -6,6 +6,7 @@ import Vue from 'vue'
 
 import App from './App'
 import store from './config/store'
+import './config/bootstrap'
 
 Vue.config.productionTip = false
 
