@@ -1,6 +1,6 @@
 <template>
     <div class="calculator">
-        <Display value="1000"/>
+        <Display :value="displayValue"/>
         <Button label="AC" triple @onClick="clearMemory"/>
         <Button label="/" operation @onClick="setOperation"/>
         <Button label="7" @onClick="addDigit"/>
@@ -26,16 +26,72 @@ import Display from "../components/Display"
 import Button from "../components/Button"
 
 export default {
+    data: function () {
+        return {
+            displayValue: "0",
+            clearDisplay: false,
+            operation: null,
+            values: [0, 0],
+            current: 0
+        }
+    },
     components: { Button, Display },
     methods: {
         clearMemory() {
-            // console.log("Limpar")
+            // Atribui para o this.$data, que é o objeto data atual, o valor inicial, que é guardado dentro de this.$options.data()
+            Object.assign(this.$data, this.$options.data())
         },
         setOperation(operation) {
             // console.log("operation: ",operation )
+            if (this.current === 0) {
+                this.operation = operation
+                this.current = 1
+                this.clearDisplay = true
+            } else {
+                const equals = operation === "="
+                const currentOperation = this.operation
+
+                try {
+                    this.values[0] = eval(
+                        `${this.values[0]} ${currentOperation} ${this.values[1]} `
+                    )
+                } catch(e) {
+                    this.$emit('onError', e) // Da pra tratar esse evento onError na tela
+                }
+                this.values[1] = 0
+                this.displayValue = this.values[0]
+                this.operation = equals ? null : operation
+                this.current = equals ? 0 : 1
+                this.clearDisplay = !equals
+            }
+
         },
         addDigit(n) {
             // console.log("Digito: ", n)
+
+            if (n === "." && this.displayValue.includes(".")) {
+                return
+            }
+
+            const clearDisplay = this.displayValue === "0" || this.clearDisplay
+
+            const currentValue = clearDisplay ? "" : this.displayValue
+
+            const displayValue = currentValue + n
+
+            this.displayValue = displayValue
+
+            this.clearDisplay = false
+
+            // Alternativa 1
+            this.values[this.current] = displayValue
+
+            // Alternativa 2 - se quiser ter os valores dentro do array como float
+            // if (n !== ".") {
+            //     const i = this.current
+            //     const newValue = parseFloat(displayValue)
+            //     this.values[i] = newValue
+            // }
         }
     }
 }
