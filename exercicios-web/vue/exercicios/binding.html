@@ -23,7 +23,7 @@
                 nome: "Bind bi-direcional"
             },
             watch: {
-                nome(novoValor) {
+                nome(novoValor) { // Colocar aqui uma function com o mesmo nome de um atributo. Cada alteração no atributo, esse método é chamado com o novo valor
                     console.log(novoValor.toUpperCase())
                 }
             }
