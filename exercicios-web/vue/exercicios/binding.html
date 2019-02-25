@@ -10,13 +10,22 @@
     <div id="app">
         <p>{{ link }}</p>
         <p><a href="{{link}}">Assim não funciona utilizar</a></p>
-        <p><a v-bind:href="link">utilizar v-bind</a></p>
+        <p><a v-bind:href="link">Uma forma de utilizar v-bind</a></p>
+        <p><a :href="link">Outra forma de fazer bind</a></p>
+        <p><input type="text" v-model="nome"></p>
+        <span>{{ nome }}</span>
     </div>
     <script>
         new Vue({
             el: "#app",
             data: {
-                link: "https://youtube.com/cod3rcursos"
+                link: "https://youtube.com/cod3rcursos",
+                nome: "Bind bi-direcional"
+            },
+            watch: {
+                nome(novoValor) {
+                    console.log(novoValor.toUpperCase())
+                }
             }
         })
     </script>
