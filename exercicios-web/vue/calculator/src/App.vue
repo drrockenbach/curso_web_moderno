@@ -1,12 +1,16 @@
 <template>
     <div id="app">
-        <h1>Olá Vue</h1>
+        <h1>Calculadora</h1>
+        <Calculator />
+
     </div>
 </template>
 
 <script>
-export default {
+import Calculator from "./main/Calculator"
 
+export default {
+    components: { Calculator }
 }
 </script>
 
@@ -26,6 +30,7 @@ export default {
 
     #app {
         display: flex;
+        flex-direction: column;
         height: 100vh; 
         justify-content: center;
         align-items: center;
