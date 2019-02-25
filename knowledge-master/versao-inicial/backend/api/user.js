@@ -14,6 +14,13 @@ module.exports = app => {
 
         if (req.params.id) user.id = req.params.id
 
+        /* se a url de origem form diferente de /users, não permite cadastrar usuário como admin.
+        Isso por que quando o usuário se cadastra, a partir de /signup, não pode permitir cadastrar como admin. Apenas outro admin pode criar um admin */
+        if (!req.originalUrl.startsWith('/users')) user.admin = false
+
+        /* Se o usuário da requisição, usuário logado, não for admin, não permite cadastrar outro usuário como admin */
+        if (!req.user || !req.user.admin) user.admin = false
+
         try {
             existsOrError(user.name, 'Nome não informado')
             existsOrError(user.email, 'E-mail não informado')
