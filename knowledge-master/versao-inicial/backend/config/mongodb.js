@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 
 // para iniciar o mongodb utilizar o comando "mongod"
 
+const { mongoDB } = require('../.env')
 
-mongoose.connect('mongodb://localhost:kanowledge_stats', { useNewUrlParser: true })
+mongoose.connect(mongoDB.url, { useNewUrlParser: true })
 .catch(e => {
         const msg = 'Não foi possível conectar com o MongoDB'
         // '\x1b[41m%s\x1b[37m' - para colocar em vermelho no background e branco na letra

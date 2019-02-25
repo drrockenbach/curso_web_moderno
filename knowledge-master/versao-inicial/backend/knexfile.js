@@ -28,15 +28,17 @@ knex migrate:make create_table_articles
 
 */
 
+const { db } = require('./.env')
 
 module.exports = {
 
     client: 'postgresql',
-    connection: {
-      database: 'knowledge',
-      user:     'postgres',
-      password: 'root'
-    },
+    // connection: {
+    //   database: 'knowledge',
+    //   user:     'postgres',
+    //   password: 'root'
+    // },
+    connection: db,
     pool: {
       min: 2,
       max: 10
