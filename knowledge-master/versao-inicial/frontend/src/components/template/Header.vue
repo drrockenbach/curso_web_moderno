@@ -18,12 +18,14 @@ export default {
     },
     computed: {
         icon() {
-            return "fa-angle-left"
+            return this.$store.state.isMenuVisible? "fa-angle-left" : "fa-angle-down"
         }
     },
     methods: {
         toggleMenu() {
-
+            this.$store.commit('toggleMenu') // vai chamar a funcao toggleMenu definida dentro do "mutations" no store.js
+            // this.$store.commit('toggleMenu', true) // vai chamar a funcao toggleMenu definida dentro do "mutations" no store.js. 
+                                                      // O Segundo parâmetro, o true, seria o parâmetro isVisible
         }
     }
 }
