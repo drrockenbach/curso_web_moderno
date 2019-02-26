@@ -14,7 +14,7 @@ import './config/msgs'
 Vue.config.productionTip = false
 
 // Temporário
-require('axios').defaults.headers.common['Authorization'] = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6IkRpb21hciBSb2RyaWdvIFJvY2tlbmJhY2giLCJlbWFpbCI6ImRycm9ja2VuYmFjaEBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTUxMDk3NTQzLCJleHAiOjE1NTEzNTY3NDN9.msoLVVUWCqdvSLEgDBgR54Qcwus1a0nQYhnKfK4n-Ko'
+// require('axios').defaults.headers.common['Authorization'] = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6IkRpb21hciBSb2RyaWdvIFJvY2tlbmJhY2giLCJlbWFpbCI6ImRycm9ja2VuYmFjaEBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTUxMDk3NTQzLCJleHAiOjE1NTEzNTY3NDN9.msoLVVUWCqdvSLEgDBgR54Qcwus1a0nQYhnKfK4n-Ko'
 
 new Vue({
   store,
