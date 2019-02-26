@@ -33,11 +33,11 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-column xs='12'>
+                <b-col xs='12'>
                     <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
                     <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
                     <b-button class="ml-2" @click="reset">Cancelar</b-button>
-                </b-column>
+                </b-col>
             </b-row>
 
         </b-form>
