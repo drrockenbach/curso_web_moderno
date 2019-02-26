@@ -9,6 +9,8 @@ import store from './config/store'
 import './config/bootstrap'
 import router from './config/router'
 
+import './config/msgs'
+
 Vue.config.productionTip = false
 
 // Temporário
