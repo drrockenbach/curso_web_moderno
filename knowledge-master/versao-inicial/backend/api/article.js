@@ -90,7 +90,7 @@ module.exports = app => {
             .whereRaw('?? = ??', ['u.id','a.userId'])
             .whereIn('a.categoryId', ids)
             .orderBy('a.id', 'desc')
-            .then(articles => res.json({data: articles}))
+            .then(articles => res.json(articles))
             .catch(err => { res.status(500).send(err.toString()) })
     }
 
