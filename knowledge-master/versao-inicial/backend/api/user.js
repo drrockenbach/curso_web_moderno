@@ -12,6 +12,8 @@ module.exports = app => {
     const save = async (req, res) => {
         const user = { ...req.body }
 
+        console.log(user)
+
         if (req.params.id) user.id = req.params.id
 
         /* se a url de origem form diferente de /users, não permite cadastrar usuário como admin.
@@ -48,12 +50,12 @@ module.exports = app => {
                 .where({id: user.id})
                 .whereNull('deletedAt')
                 .then(res.status(204).send()) // 204 deu tudo certo mas não tem retorno
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send(err.toString()))
         } else {
             app.db('users')
                 .insert(user)
                 .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send(err.toString()))
         }
     }
 
