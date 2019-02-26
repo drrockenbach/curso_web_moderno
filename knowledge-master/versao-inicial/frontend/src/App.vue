@@ -3,7 +3,8 @@
 		<Header title="Cod3r - Base de Conhecimento" :hideToggle="!user"
 		:hideUserDropdown="!user"/>
 		<Menu v-if="user" />
-		<Content />
+		<Loading v-if="validatingToken" />
+		<Content v-else/>
 		<Footer />
 	</div>
 </template>
@@ -18,12 +19,12 @@ import Footer from '@/components/template/Footer'
 import { mapState } from 'vuex'
 import axios from 'axios'
 import { baseApiUrl, userKey} from '@/global'
+import Loading from '@/components/template/Loading'
 
 export default {
 	name: "App",
 	components: {
-		Header,
-		Menu, Content, Footer
+		Header, Menu, Content, Footer, Loading
 	},
 	computed: mapState(['isMenuVisible', 'user']),
 	data: function() {
