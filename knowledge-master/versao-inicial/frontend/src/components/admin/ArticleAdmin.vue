@@ -1,15 +1,154 @@
 <template>
     <div class="article-admin">
-        Artigo componente
+        <b-form>
+            <input type="hidden" id="article-id" v-model="article.id" />
+
+            <b-form-group label="Nome:" label-for="article-name">
+                <b-form-input id="article-name" type="text" v-model="article.name" required :readonly="mode === 'remove'"
+                    placeholder="Informe o Nome do Artigo..." />
+            </b-form-group>
+            <b-form-group label="Descrição:" label-for="article-description">
+                <b-form-input id="article" type="text" v-model="article.description" required :readonly="mode === 'remove'"
+                    placeholder="Informe a Descrição do Artigo..." />
+            </b-form-group>
+            <b-form-group label="Imagem(URL):" label-for="article-imageURL" v-if="mode === 'save'">
+                <b-form-input id="article-imageURL" type="text" v-model="article.imageUrl" required :readonly="mode === 'remove'"
+                    placeholder="Informe a URL da Imagem..." />
+            </b-form-group>
+        
+            <b-form-group label="Categoria:" label-for="article-categoryId" v-if="mode === 'save'">
+                <b-form-select  id="article-categoryId" :options="categories"
+                    v-model="article.categoryId" /> <!--v-model="article.categoryId" Quando selecionar um registro, é para esse campo que vai o valor do selecionado-->
+            </b-form-group>
+            
+            <b-form-group label="Autor:" label-for="article-userId" v-if="mode === 'save'">
+                <b-form-select  id="article-userId" :options="users"
+                    v-model="article.userId" /> 
+            </b-form-group>
+
+            <b-form-group label="Conteúdo:" label-for="article-conteudo" v-if="mode === 'save'">
+                
+                <VueEditor v-model="article.content" aria-placeholder="Informe o conteúdo do Artigo..." />
+                
+            </b-form-group>
+
+            <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
+            <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
+            <b-button class="ml-2" @click="reset">Cancelar</b-button>
+
+        </b-form>
+        <hr>
+        <b-table hover striped :items="articles" :fields="fields">
+            <template slot="actions" slot-scope="data">
+                <b-button variant="warning" @click="loadArticle(data.item)" class="mr-2">
+                    <i class="fa fa-pencil"></i>
+                </b-button>
+                <b-button variant="danger" @click="loadArticle(data.item, 'remove')">
+                    <i class="fa fa-trash"></i>
+                </b-button>
+            </template>
+        </b-table>
+
     </div>
 </template>
 
 <script>
+
+import { VueEditor } from 'vue2-editor'
+import axios from 'axios'
+import { baseApiUrl, showError } from '@/global'
+
 export default {
-    name: 'ArticleAdmin'
+    name: 'ArticleAdmin',
+    components: { VueEditor },
+    data: function() {
+        return {
+            mode: 'save',
+            article: {},
+            articles: [],
+            categories: [],
+            users: [],
+            page: 1,
+            limit: 0,
+            count: 0,
+            fields: [
+                {key: 'id', label: 'Código', sortable: true},
+                {key: 'name', label: 'Nome', sortable: true},
+                {key: 'description', label: 'Descrição', sortable: true},
+                {key: 'actions', label: 'Ações'}
+            ]
+        }
+    },
+    methods: {
+        loadArticles() {
+            const url = `${baseApiUrl}/articles`
+            axios.get(url).then(res => {
+                // this.articles = res.data
+                this.articles = res.data.data
+                this.count = res.data.count
+                this.limit = res.data.limit
+            })
+        },
+        save() {
+            const method = this.article.id ? 'put' : 'post'
+            const id = this.article.id ? `/${this.article.id}` : ''
+            const url = `${baseApiUrl}/articles`
+            axios[method](`${url}${id}`, this.article)
+                .then(() => {
+                    this.$toasted.global.defaultSuccess()
+                    this.reset()
+                })
+                .catch(showError)
+        },
+        remove() {
+            const id = this.article.id
+            const url = `${baseApiUrl}/articles`
+            axios.delete(`${url}/${id}`)
+                .then(() => {
+                    this.$toasted.global.defaultSuccess()
+                    this.reset()
+                })
+                .catch(showError)
+        },
+        reset() {
+            this.mode = 'save'
+            this.article = {}
+            this.loadArticles()
+        },
+        loadArticle(article, mode = 'save') {
+            this.mode = mode
+            // this.article = { ...article }
+            // Necessário fazer isso, pois na datatable não vai ter o conteúdo do artigo, em função do tamanho e de não previsar exibir na tabela.
+            axios.get(`${baseApiUrl}/articles/${article.id}`)
+                .then(res => this.article = res.data)
+        },
+        loadCategories() {
+            const url = `${baseApiUrl}/categories`
+            axios.get(url).then(res => {
+                this.categories = res.data.map(category => {
+                    return {value: category.id, text: category.path }
+                })
+            })
+        },
+        loadUsers() {
+            const url = `${baseApiUrl}/users`
+            axios.get(url).then(res => {
+                this.users = res.data.map(user => {
+                    return {value: user.id, text: `${user.name} - ${user.email}` }
+                })
+            })
+        }
+    },
+    mounted() {
+        this.loadArticles()
+        this.loadCategories() 
+        this.loadUsers()
+    }
 }
 </script>
 
 <style>
 
 </style>
+
+
