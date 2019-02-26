@@ -16,6 +16,8 @@ import Header from '@/components/template/Header'
 import Menu from '@/components/template/Menu'
 import Footer from '@/components/template/Footer'
 import { mapState } from 'vuex'
+import axios from 'axios'
+import { baseApiUrl, userKey} from '@/global'
 
 export default {
 	name: "App",
@@ -23,7 +25,43 @@ export default {
 		Header,
 		Menu, Content, Footer
 	},
-	computed: mapState(['isMenuVisible', 'user'])
+	computed: mapState(['isMenuVisible', 'user']),
+	data: function() {
+		return {
+			validatingToken: true
+		}
+	},
+	methods: {
+		async validateToken() {
+			this.validatingToken = true
+			const json = localStorage.getItem(userKey)
+			const userData = JSON.parse(json)
+			this.$store.commit('setUser', null)
+
+			// Se não tiver usuário no localStorage é por que está deslogado. Redireciona para a tela de login
+			if (!userData) {
+				this.validatingToken = false
+				this.$router.push({name: 'auth'})
+				return
+			}
+
+			// valida o token no backend
+			const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
+
+			// Se token estiver válido, coloca na store novamente
+			if (res.data) {
+				this.$store.commit('setUser', userData)
+			} else { // Se não validou o token
+				localStorage.removeItem(userKey)
+				this.$router.push({name: 'auth'})
+			}
+
+			this.validatingToken = false
+		}
+	},
+	created() { // chama antes do mounted
+		this.validateToken()
+	}
 }
 </script>
 
