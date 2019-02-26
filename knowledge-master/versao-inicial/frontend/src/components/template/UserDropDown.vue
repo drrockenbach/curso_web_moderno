@@ -8,7 +8,8 @@
             <i class="fa fa-angle-down"></i>
         </div>
         <div class="user-dropdown-content">
-            <router-link to="/admin">
+            <!--Além de esconde o link aqui, é necessário fazer configurações em router, no método beforeEach, pois se entrar direto colocando a URL a tela abre.-->
+            <router-link to="/admin" v-if="user.admin"> 
                 <i class="fa fa-cogs">Administração</i>
             </router-link>
             <a @click.prevent="logout">
