@@ -36,13 +36,25 @@ export default {
             axios(url).then(res => this.category = res.data)
         },
         getArticles() {
-            console.log("page: ", this.page)
             const url = `${baseApiUrl}/categories/${this.category.id}/articles?page=${this.page}`
             axios(url).then(res => {
                 this.articles = this.articles.concat(res.data)
                 this.page++
                 if (res.data.length === 0) this.loadMore = false
             })
+        }
+    },
+    watch: {
+        /* Dentro do Menu.vue foi criado o método onNodeSelect e associado ao click em cada nó da árvore e criando uma rota para esse componente
+        para isso funcionar, é preciso adicionar um watch na rota para ficar monitorando, e ajustar alguns coisas, conforme abaixo, 
+        caso contrário só irá carregar a primeira vez */
+        $route(to) {
+            this.category.id = to.params.id
+            this.articles = []
+            this.page = 1 
+            this.loadMore = true
+            this.getCategory()
+            this.getArticles()
         }
     },
     mounted() {

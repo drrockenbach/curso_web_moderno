@@ -39,7 +39,21 @@ export default {
         getTreeData() {
             const url = `${baseApiUrl}/categories/tree`
             return axios(url).then(res => res.data) // Retorna a própria promise
+        },
+        onNodeSelect(node) {
+
+            this.$router.push({
+                name: 'articlesByCategory',
+                params: { id: node.id }
+            })
+
         }
+    },
+    mounted() {
+        /* para cada nó da árvore, é vinculado o evento selected atribuindo o onNodeSelect 
+            O "$refs.tree" se refere ao ref="tree" definido no componente <Tree  />
+        */
+        this.$refs.tree.$on('node:selected', this.onNodeSelect)
     }
 }
 </script>
