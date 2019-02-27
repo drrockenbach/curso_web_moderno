@@ -50,7 +50,7 @@ module.exports = app => {
     }
 
     // Limite de paginação
-    const limit = 2
+    const limit = 10
 
     const get = async (req, res) => {
         const page = req.query.page || 1 // Se não estiver setado a page, pega 1 por default
