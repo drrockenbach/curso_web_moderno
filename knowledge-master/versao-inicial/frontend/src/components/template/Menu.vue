@@ -47,6 +47,12 @@ export default {
                 params: { id: node.id }
             })
 
+            /* 
+                Ao clicar em um item de menu, caso o dispositivo seja extra small ou small, fecha o menu.
+            */
+            if (this.$mq === 'xs' || this.$mq === 'sm') {
+                this.$store.commit('toggleMenu', false)
+            }
         }
     },
     mounted() {
