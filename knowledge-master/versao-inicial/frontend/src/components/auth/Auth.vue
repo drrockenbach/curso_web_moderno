@@ -46,7 +46,7 @@ export default {
         },
         signup() {
             axios.post(`${baseApiUrl}/signup`, this.user)
-                .then(res => {
+                .then(() => {
                     this.$toasted.global.defaultSuccess()
                     this.user = {}
                     this.showSignup = false
